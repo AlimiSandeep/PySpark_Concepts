@@ -111,7 +111,7 @@ Spark RDD `repartition()` method is used to increase or decrease the partitions.
 ##### RDD coalesce()
 Spark RDD `coalesce()` is used only to reduce the number of partitions. This is optimized or improved version of repartition() where the movement of the data across the partitions is lower using coalesce.
 
-Ex : [Repartition-Coalesce.ipynb](Notebooks/pyspark-repartition-coalesce)
+Ex : [Repartition-Coalesce.ipynb](Notebooks/pyspark-repartition-coalesce.ipynb)
 
 DataFrames
 Like an RDD, a DataFrame is an immutable distributed collection of data. Unlike an RDD, data is organized into named columns, like a table in a relational database. Designed to make large data sets processing even easier, DataFrame allows developers to impose a structure onto a distributed collection of data, allowing higher-level abstraction;
