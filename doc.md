@@ -113,5 +113,41 @@ Spark RDD `coalesce()` is used only to reduce the number of partitions. This is 
 
 Ex : [Repartition-Coalesce.ipynb](Notebooks/pyspark-repartition-coalesce.ipynb)
 
+## RDD Operations
+On PySpark RDD, you can perform two kinds of operations.
+- RDD transformations 
+- RDD Actions
+
+##### RDD Transformations 
+###### RDD Transformation Types
+There are two types are transformations.
+- Narrow Transformation
+- Wider Transformation
+
+**Narrow Transformation**       
+Narrow transformations compute data that live on a single partition meaning there will not be any data movement between partitions to execute narrow transformations.
+
+![Narrow Transformation](./Reference%20Images/narrow-transformation.png)
+
+Functions such as `map(), mapPartition(), flatMap(), filter(), union()` are some examples of narrow transformation      
+
+**Wider Transformation**        
+Wider transformations compute data that live on many partitions meaning there will be data movements between partitions to execute wider transformations. Since these shuffles the data, they also called `shuffle transformations`.
+
+![Wider Transformation](./Reference%20Images/wider-transformation.png)
+
+**RDD Transformations functions**           
+- flatMap
+- map
+- reduceByKey
+- sortByKey
+- filter
+
+Ex :        [Transformations functions.ipynb](Notebooks/pyspark-rdd-transformations.ipynb)
+
+Some more functions are :   
+`mapPartitions(), mapPartitionsWithIndex(), randomSplit(), union(), intersection(), distinct(), repartition(), coalesce()` etc
+
+
 DataFrames
 Like an RDD, a DataFrame is an immutable distributed collection of data. Unlike an RDD, data is organized into named columns, like a table in a relational database. Designed to make large data sets processing even easier, DataFrame allows developers to impose a structure onto a distributed collection of data, allowing higher-level abstraction;
