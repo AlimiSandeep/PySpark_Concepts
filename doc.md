@@ -38,8 +38,31 @@ Use `local[x]` when running in Standalone mode. **'x'** should be an integer val
 
 ##### Create RDD using sparkContext.parallelize()
 PySpark `parallelize()` is a function in SparkContext and is used to create an RDD from a list collection
+Example : [Parallelize.ipynb](Notebooks/pyspark-parallelize.ipynb)
+For production applications, we mostly create RDD by using external storage systems like HDFS, S3, HBase e.t.c. To make it simple for this PySpark RDD learning we are using files from the local system or loading it from the python list to create RDD.
 
-Example : [Parallelize.ipynb](./Notebooks/pyspark-parallelize.ipynb)
+##### Create RDD from External Storage Systems
+Using `textFile()` method we can read a text (.txt) file into RDD.
+```
+-- Create RDD from external Data source
+rdd = spark.sparkContext.textFile("/path/textFile.txt")
+```
+`wholeTextFiles()` function returns a PairRDD with the key being the file path and value being file content.
+```
+-- Reads entire file into a RDD as single record.
+rdd = spark.sparkContext.wholeTextFiles("/path/textFile.txt")
+```
+When we use parallelize() or textFile() or wholeTextFiles() methods of SparkContext to initiate RDD, it automatically splits the data into partitions based on resource availability. when you run it on a laptop it would create partitions as the same number of cores available on your system.
+
+Besides using text files, we can also create RDD from CSV file, JSON, and more formats.
+
+To learn more : 
+[Reading text file into RDD |DataFrame](https://sparkbyexamples.com/spark/spark-read-text-file-rdd-dataframe/)
+[Reading CSV](https://sparkbyexamples.com/pyspark/pyspark-read-csv-file-into-dataframe/)
+
+
+
+
 
 DataFrames
 Like an RDD, a DataFrame is an immutable distributed collection of data. Unlike an RDD, data is organized into named columns, like a table in a relational database. Designed to make large data sets processing even easier, DataFrame allows developers to impose a structure onto a distributed collection of data, allowing higher-level abstraction;
