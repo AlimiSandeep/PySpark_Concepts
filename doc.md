@@ -39,5 +39,7 @@ Use `local[x]` when running in Standalone mode. **'x'** should be an integer val
 ##### Create RDD using sparkContext.parallelize()
 PySpark `parallelize()` is a function in SparkContext and is used to create an RDD from a list collection
 
+Example : [Parallelize.ipynb](./Notebooks/pyspark-parallelize.ipynb)
+
 DataFrames
 Like an RDD, a DataFrame is an immutable distributed collection of data. Unlike an RDD, data is organized into named columns, like a table in a relational database. Designed to make large data sets processing even easier, DataFrame allows developers to impose a structure onto a distributed collection of data, allowing higher-level abstraction;
