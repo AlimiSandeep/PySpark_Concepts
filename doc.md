@@ -107,9 +107,10 @@ You can also set the partition value of these configurations using Pyspark-submi
 
 ### RDD Partition and repartition
 ##### RDD repartition()
-Spark RDD `repartition()` method is used to increase or decrease the partitions. 
+Spark RDD `repartition()` method is used to increase or decrease the partitions.
+This operation reshuffles the RDD randomly.
 ##### RDD coalesce()
-Spark RDD `coalesce()` is used only to reduce the number of partitions. This is optimized or improved version of repartition() where the movement of the data across the partitions is lower using coalesce.
+Spark RDD `coalesce()` is used only to reduce the number of partitions. This is optimized or improved version of repartition() where betterment is achieved by reshuffling the data from fewer nodes compared with all nodes by repartition.
 
 Ex : [Repartition-Coalesce.ipynb](Notebooks/pyspark-repartition-coalesce.ipynb)
 
@@ -136,7 +137,13 @@ Wider transformations compute data that live on many partitions meaning there wi
 
 ![Wider Transformation](./Reference%20Images/wider-transformation.png)
 
-**RDD Transformations functions**           
+Functions such as `groupByKey(), aggregateByKey(), aggregate(), join(), repartition()` are some examples of a wider transformations.
+
+**RDD Transformation functions**   
+Transformations on Spark RDD returns another RDD and transformations are lazy meaning they don’t execute until you call an action on RDD.
+
+Some transformations on RDD’s are
+
 - flatMap
 - map
 - reduceByKey
@@ -148,6 +155,20 @@ Ex :        [Transformations functions.ipynb](Notebooks/pyspark-rdd-transformati
 Some more functions are :   
 `mapPartitions(), mapPartitionsWithIndex(), randomSplit(), union(), intersection(), distinct(), repartition(), coalesce()` etc
 
+**RDD Actions**
+RDD Action operation returns the values from an RDD to a driver node. In other words, any RDD function that returns non RDD[T] is considered as an action.
+
+Some actions on RDD’s are :
+- count()
+- collect()
+- first()
+- max()
+- reduce()
+
+Some more actions are : `aggregate(), countByValue(), foreach(), min()`
+
+Example : [RDD Actions.ipynb](Notebooks/pyspark-rdd-actions.ipynb)
+For more Info : [RDD Actions](https://sparkbyexamples.com/apache-spark-rdd/spark-rdd-actions/)
 
 DataFrames
 Like an RDD, a DataFrame is an immutable distributed collection of data. Unlike an RDD, data is organized into named columns, like a table in a relational database. Designed to make large data sets processing even easier, DataFrame allows developers to impose a structure onto a distributed collection of data, allowing higher-level abstraction;
