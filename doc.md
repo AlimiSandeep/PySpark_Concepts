@@ -1,13 +1,17 @@
-### RDD (Resilient Distributed Dataset) 
+## RDD (Resilient Distributed Dataset) 
 Is an immutable distributed collections of objects.
 
 
 ##### Features of an RDD in Spark:
 ***
-**Resilience** : If a node in one cluster happens to crap out in the middle of a computation, the RDD will be automatically recovered from the other nodes still in operation. It is also called fault tolerance.
-**Lazy evaluation**: Data does not get loaded in an RDD even if you define it. Transformations are actually computed when you call an action, such as count or collect, or save the output to a file system.
-**Immutability**: Data stored in an RDD is in the read-only mode━you cannot edit the data which is present in the RDD. But, you can create new RDDs by performing transformations on the existing RDDs.
+**Resilience** : If a node in one cluster happens to crap out in the middle of a computation, the RDD will be automatically recovered from the other nodes still in operation. It is also called fault tolerance. 
+
+**Lazy evaluation**: Data does not get loaded in an RDD even if you define it. Transformations are actually computed when you call an action, such as count or collect, or save the output to a file system. 
+
+**Immutability**: Data stored in an RDD is in the read-only mode━you cannot edit the data which is present in the RDD. But, you can create new RDDs by performing transformations on the existing RDDs.  
+
 **In-memory computation**: Loads the data from disk and process in memory and keeps the data in memory (RAM) than on the disk so that it provides faster access.
+
 **Partitioning**: Data present in an RDD resides on multiple nodes. A single RDD is divided into multiple logical partitions, which can be computed on different nodes of the cluster.
 
 ![RDD features](./Reference%20Images/RDD%20features.png)
@@ -31,19 +35,23 @@ import pyspark
 from pyspark.sql import SparkSession
 spark = SparkSession.builder.master("local[1]").appName("SparkByExamples.com").getOrCreate() 
 ```
-`master()` – If you are running it on the cluster you need to use your master name as an argument to master(). usually, it would be either yarn (Yet Another Resource Negotiator) or mesos depends on your cluster setup.
+> `master()` – If you are running it on the cluster you need to use your master name as an argument to master(). usually, it would be either yarn (Yet Another Resource Negotiator) or mesos depends on your cluster setup.
 In realtime application, you will pass master from spark-submit instead of hardcoding on Spark application.
-Use `local[x]` when running in Standalone mode. **'x'** should be an integer value and should be greater than **'0'**; this represents how many partitions it should create when using RDD, DataFrame, and Dataset. Ideally, **'x'** value should be the number of CPU cores you have.
-`appName()` – Used to set your application name.
-`getOrCreate()` – This returns a SparkSession object if already exists, creates new one if not exists.
+
+> Use `local[x]` when running in Standalone mode. **'x'** should be an integer value and should be greater than **'0'**; this represents how many partitions it should create when using RDD, DataFrame, and Dataset. Ideally, **'x'** value should be the number of CPU cores you have.
+
+> `appName()` – Used to set your application name.
+
+> `getOrCreate()` – This returns a SparkSession object if already exists, creates new one if not exists.
+
 ***Note:*** Creating SparkSession object, it internally creates one SparkContext per JVM.
 
-##### Create RDD using sparkContext.parallelize()
-PySpark `parallelize()` is a function in SparkContext and is used to create an RDD from a list collection
-Example : [Parallelize.ipynb](Notebooks/pyspark-parallelize.ipynb)
+#### Create RDD using sparkContext.parallelize()
+PySpark `parallelize()` is a function in SparkContext and is used to create an RDD from a list collection               
+Example : [Parallelize.ipynb](Notebooks/pyspark-parallelize.ipynb)              
 For production applications, we mostly create RDD by using external storage systems like HDFS, S3, HBase e.t.c. To make it simple for this PySpark RDD learning we are using files from the local system or loading it from the python list to create RDD.
 
-##### Create RDD from External Storage Systems
+#### Create RDD from External Storage Systems
 Using `textFile()` method we can read a text (.txt) file into RDD.
 ```
 -- Create RDD from external Data source
@@ -62,7 +70,7 @@ To learn more :
 [Reading text file into RDD |DataFrame](https://sparkbyexamples.com/spark/spark-read-text-file-rdd-dataframe/)
 [Reading CSV](https://sparkbyexamples.com/pyspark/pyspark-read-csv-file-into-dataframe/)
 
-# Repartition and Coalesce
+### Repartition and Coalesce
 ***
 Some times we may need to repartition the RDD, PySpark provides two ways to repartition;
 - `repartition()` method which shuffles data from all nodes also called **full shuffle**
@@ -90,14 +98,14 @@ Above example yields output as 5 partitions.
 ##### 1.2 HDFS cluster mode
 When you running PySpark jobs on the Hadoop cluster the default number of partitions is based on the following.
 
-On the HDFS cluster, by default, PySpark creates one Partition for each block of the file.
-In Version 1 Hadoop the HDFS block size is 64 MB and in Version 2 Hadoop the HDFS block size is 128 MB
-Total number of cores on all executor nodes in a cluster or 2, whichever is larger
-For example if you have 640 MB file and running it on Hadoop version 2, creates 5 partitions with each consists on 128 MB blocks (5 blocks * 128 MB = 640 MB). If you repartition to 10 then it creates 2 partitions for each block.
+On the HDFS cluster, by default, PySpark creates one Partition for each block of the file.              
+In Version 1 Hadoop the HDFS block size is 64 MB and in Version 2 Hadoop the HDFS block size is 128 MB          
+Total number of cores on all executor nodes in a cluster or 2, whichever is larger              
+For example if you have 640 MB file and running it on Hadoop version 2, creates 5 partitions with each consists on 128 MB blocks (5 blocks * 128 MB = 640 MB). If you repartition to 10 then it creates 2 partitions for each block.            
 
 ##### 1.3 PySpark configuration
-`spark.default.parallelism` configuration default value set to the number of all cores on all nodes in a cluster, on local it is set to number of cores on your system.
-`spark.sql.shuffle.partitions` configuration default value is set to 200 and be used when you call shuffle operations like reduceByKey()  , groupByKey(), join() and many more. This property is available only in DataFrame API but not in RDD.
+`spark.default.parallelism` configuration default value set to the number of all cores on all nodes in a cluster, on local it is set to number of cores on your system.         
+`spark.sql.shuffle.partitions` configuration default value is set to 200 and be used when you call shuffle operations like reduceByKey()  , groupByKey(), join() and many more. This property is available only in DataFrame API but not in RDD.                
 
 You can change the values of these properties through programmatically using the below statement
 ```spark.conf.set("spark.sql.shuffle.partitions", "500")```
@@ -114,7 +122,8 @@ Spark RDD `coalesce()` is used only to reduce the number of partitions. This is 
 
 Ex : [Repartition-Coalesce.ipynb](Notebooks/pyspark-repartition-coalesce.ipynb)
 
-## RDD Operations
+### RDD Operations
+***
 On PySpark RDD, you can perform two kinds of operations.
 - RDD transformations 
 - RDD Actions
@@ -155,7 +164,7 @@ Ex :        [Transformations functions.ipynb](Notebooks/pyspark-rdd-transformati
 Some more functions are :   
 `mapPartitions(), mapPartitionsWithIndex(), randomSplit(), union(), intersection(), distinct(), repartition(), coalesce()` etc
 
-**RDD Actions**
+**RDD Actions**         
 RDD Action operation returns the values from an RDD to a driver node. In other words, any RDD function that returns non RDD[T] is considered as an action.
 
 Some actions on RDD’s are :
@@ -170,8 +179,9 @@ Some more actions are : `aggregate(), countByValue(), foreach(), min()`
 Example : [RDD Actions.ipynb](Notebooks/pyspark-rdd-actions.ipynb)
 For more Info : [RDD Actions](https://sparkbyexamples.com/apache-spark-rdd/spark-rdd-actions/)
 
-##### PySpark RDD Persistence 
-PySpark Cache and Persist are optimization techniques to improve the performance of the RDD jobs that are iterative and interactive
+## PySpark RDD Persistence 
+***
+PySpark `cache() and persist()` are optimization techniques to improve the performance of the RDD jobs that are iterative and interactive
 
 Though PySpark provides computation 100 x times faster than traditional Map Reduce jobs, If you have not designed the jobs to reuse the repeating computations you will see degrade in performance when you are dealing with billions or trillions of data. Hence, we need to look at the computations and use optimization techniques as one of the ways to improve performance.
 
@@ -185,14 +195,16 @@ When you persist or cache an RDD, each worker node stores it’s partitioned dat
 - *Time efficient* – Reusing the repeated computations saves lots of time.
 - *Execution time* – Saves execution time of the job which allows us to perform more jobs on the same cluster.
 
-**RDD Cache**       
+**RDD Cache** 
+
 PySpark RDD cache() method by default saves RDD computation to storage level `MEMORY_ONLY` meaning it will store the data in the JVM heap as unserialized objects.
 
 PySpark cache() method in RDD class internally calls `persist()` method which in turn uses sparkSession.sharedState.cacheManager.cacheQuery to cache the result set of RDD. Let’s look at an example.
 ```
 cachedRdd = rdd.cache()
 ```
-**RDD Persist**     
+**RDD Persist**  
+
 PySpark `persist()` method is used to store the RDD to one of the storage levels `MEMORY_ONLY,MEMORY_AND_DISK, MEMORY_ONLY_SER, MEMORY_AND_DISK_SER, DISK_ONLY, MEMORY_ONLY_2,MEMORY_AND_DISK_2` and more.
 
 PySpark persist has two signature first signature doesn’t take any argument which by default saves it to MEMORY_ONLY storage level and the second signature which takes StorageLevel as an argument to store it to different storage levels.
@@ -236,26 +248,27 @@ DISK_ONLY_2 – Same as DISK_ONLY storage level but replicate each partition to 
 To get more understanding on "Why do we need to call cache or persist on a RDD"
 [Visit StackOverFlow](https://stackoverflow.com/questions/28981359/why-do-we-need-to-call-cache-or-persist-on-a-rdd)
 
-##### PySpark Shared Variables
+## PySpark Shared Variables
+***
 For parallel processing, Apache Spark uses shared variables. When the driver sends a task to the executor on the cluster, a copy of shared variable goes on each node of the cluster, so we can use it for performing tasks.
 Shared variables supported by Apache Spark in PySpark are two types of −
 - Broadcast
 - Accumulator
 
-**Broadcast variables**
+**Broadcast variables**         
 Broadcast variables are read-only shared variables and used to save the copy of data across all nodes. This variable is cached on all the machines and not sent on machines with tasks. 
 
-**When to use :**
+**When to use :**               
 Many times, we will need something like a lookup table or parameters to base our calculations. Those parameters will be static and won't change during the calculation, they will be read-only params.
 
 Broadcast variables are used when static(read-only) variables need to be shared across executers.
 
-**Why to use :**        
+**Why to use :**                       
 Without broadcast variables, these variables would be shipped to each executor for every transformation and action; this can cause network overhead. However, with broadcast variables, they are shipped once to all executors and are cached for future reference.
 
 Example : [Broadcast.ipynb](Notebooks/pyspark-rdd-broadcast.ipynb)
 
-**Accumulators**        
+**Accumulators**                        
 A shared variable that can be accumulated, i.e., has a commutative and associative “add” operation. Worker tasks on a Spark cluster can add values to an Accumulator with the += operator, but only the driver program is allowed to access its value, using value. Updates from the workers get propagated automatically to the driver program.
 
 For example, you can use an accumulator for a sum operation or counters (in MapReduce). 
