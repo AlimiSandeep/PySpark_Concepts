@@ -236,5 +236,33 @@ DISK_ONLY_2 – Same as DISK_ONLY storage level but replicate each partition to 
 To get more understanding on "Why do we need to call cache or persist on a RDD"
 [Visit StackOverFlow](https://stackoverflow.com/questions/28981359/why-do-we-need-to-call-cache-or-persist-on-a-rdd)
 
+##### PySpark Shared Variables
+For parallel processing, Apache Spark uses shared variables. When the driver sends a task to the executor on the cluster, a copy of shared variable goes on each node of the cluster, so we can use it for performing tasks.
+Shared variables supported by Apache Spark in PySpark are two types of −
+- Broadcast
+- Accumulator
+
+**Broadcast variables**
+Broadcast variables are read-only shared variables and used to save the copy of data across all nodes. This variable is cached on all the machines and not sent on machines with tasks. 
+
+**When to use :**
+Many times, we will need something like a lookup table or parameters to base our calculations. Those parameters will be static and won't change during the calculation, they will be read-only params.
+
+Broadcast variables are used when static(read-only) variables need to be shared across executers.
+
+**Why to use :**        
+Without broadcast variables, these variables would be shipped to each executor for every transformation and action; this can cause network overhead. However, with broadcast variables, they are shipped once to all executors and are cached for future reference.
+
+Example : [Broadcast.ipynb](Notebooks/pyspark-rdd-broadcast.ipynb)
+
+**Accumulators**        
+A shared variable that can be accumulated, i.e., has a commutative and associative “add” operation. Worker tasks on a Spark cluster can add values to an Accumulator with the += operator, but only the driver program is allowed to access its value, using value. Updates from the workers get propagated automatically to the driver program.
+
+For example, you can use an accumulator for a sum operation or counters (in MapReduce). 
+
+Ex : [Accumulator.ipynb](Notebooks/pyspark-accumulator.ipynb)
+
+For more : [Accumulators](https://sparkbyexamples.com/spark/spark-accumulators/) 
+
 DataFrames
 Like an RDD, a DataFrame is an immutable distributed collection of data. Unlike an RDD, data is organized into named columns, like a table in a relational database. Designed to make large data sets processing even easier, DataFrame allows developers to impose a structure onto a distributed collection of data, allowing higher-level abstraction;
