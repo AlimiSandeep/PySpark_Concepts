@@ -170,5 +170,71 @@ Some more actions are : `aggregate(), countByValue(), foreach(), min()`
 Example : [RDD Actions.ipynb](Notebooks/pyspark-rdd-actions.ipynb)
 For more Info : [RDD Actions](https://sparkbyexamples.com/apache-spark-rdd/spark-rdd-actions/)
 
+##### PySpark RDD Persistence 
+PySpark Cache and Persist are optimization techniques to improve the performance of the RDD jobs that are iterative and interactive
+
+Though PySpark provides computation 100 x times faster than traditional Map Reduce jobs, If you have not designed the jobs to reuse the repeating computations you will see degrade in performance when you are dealing with billions or trillions of data. Hence, we need to look at the computations and use optimization techniques as one of the ways to improve performance.
+
+Using cache() and persist() methods, PySpark provides an optimization mechanism to store the intermediate computation of an RDD so they can be reused in subsequent actions.
+
+When you persist or cache an RDD, each worker node stores it’s partitioned data in memory or disk and reuses them in other actions on that RDD. And Spark’s persisted data on nodes are fault-tolerant meaning if any partition is lost, it will automatically be recomputed using the original transformations that created it.
+
+**Advantages of Persisting RDD**
+
+- *Cost efficient* – PySpark computations are very expensive hence reusing the computations are used to save cost.
+- *Time efficient* – Reusing the repeated computations saves lots of time.
+- *Execution time* – Saves execution time of the job which allows us to perform more jobs on the same cluster.
+
+**RDD Cache**       
+PySpark RDD cache() method by default saves RDD computation to storage level `MEMORY_ONLY` meaning it will store the data in the JVM heap as unserialized objects.
+
+PySpark cache() method in RDD class internally calls `persist()` method which in turn uses sparkSession.sharedState.cacheManager.cacheQuery to cache the result set of RDD. Let’s look at an example.
+```
+cachedRdd = rdd.cache()
+```
+**RDD Persist**     
+PySpark `persist()` method is used to store the RDD to one of the storage levels `MEMORY_ONLY,MEMORY_AND_DISK, MEMORY_ONLY_SER, MEMORY_AND_DISK_SER, DISK_ONLY, MEMORY_ONLY_2,MEMORY_AND_DISK_2` and more.
+
+PySpark persist has two signature first signature doesn’t take any argument which by default saves it to MEMORY_ONLY storage level and the second signature which takes StorageLevel as an argument to store it to different storage levels.
+```
+dfPersist = rdd.persist()
+dfPersist = rdd.persist(pyspark.StorageLevel.MEMORY_ONLY)
+```
+> Note that RDD.cache() is an alias for persist(StorageLevel.MEMORY_ONLY) and it will store the data in the JVM heap as unserialized objects. When you write data to a disk, that data is always serialized. 
+
+**RDD Unpersist**       
+
+PySpark automatically monitors every persist() and cache() calls you make and it checks usage on each node and drops persisted data if not used or by using least-recently-used (LRU) algorithm. You can also manually remove using unpersist() method. unpersist() marks the RDD as non-persistent, and remove all blocks for it from memory and disk.
+```
+  rdd_unpersist = rdd.unpersist()
+```
+
+**Persistence Storage Levels**
+
+All different storage level PySpark supports are available at org.apache.spark.storage.StorageLevel class. Storage Level defines how and where to store the RDD.
+
+MEMORY_ONLY – This is the default behavior of the RDD cache() method and stores the RDD as deserialized objects to JVM memory. When there is no enough memory available it will not save to RDD of some partitions and these will be re-computed as and when required. This takes more storage but runs faster as it takes few CPU cycles to read from memory.
+
+MEMORY_ONLY_SER – This is the same as MEMORY_ONLY but the difference being it stores RDD as serialized objects to JVM memory. It takes lesser memory (space-efficient) then MEMORY_ONLY as it saves objects as serialized and takes an additional few more CPU cycles in order to deserialize.
+
+MEMORY_ONLY_2 – Same as MEMORY_ONLY storage level but replicate each partition to two cluster nodes.
+
+MEMORY_ONLY_SER_2 – Same as MEMORY_ONLY_SER storage level but replicate each partition to two cluster nodes.
+
+MEMORY_AND_DISK – In this Storage Level, The RDD will be stored in JVM memory as a deserialized objects. When required storage is greater than available memory, it stores some of the excess partitions in to disk and reads the data from disk when it required. It is slower as there is I/O involved.
+
+MEMORY_AND_DISK_SER – This is same as MEMORY_AND_DISK storage level difference being it serializes the RDD objects in memory and on disk when space not available.
+
+MEMORY_AND_DISK_2 – Same as MEMORY_AND_DISK storage level but replicate each partition to two cluster nodes.
+
+MEMORY_AND_DISK_SER_2 – Same as MEMORY_AND_DISK_SER storage level but replicate each partition to two cluster nodes.
+
+DISK_ONLY – In this storage level, RDD is stored only on disk and the CPU computation time is high as I/O involved.
+
+DISK_ONLY_2 – Same as DISK_ONLY storage level but replicate each partition to two cluster nodes.
+
+To get more understanding on "Why do we need to call cache or persist on a RDD"
+[Visit StackOverFlow](https://stackoverflow.com/questions/28981359/why-do-we-need-to-call-cache-or-persist-on-a-rdd)
+
 DataFrames
 Like an RDD, a DataFrame is an immutable distributed collection of data. Unlike an RDD, data is organized into named columns, like a table in a relational database. Designed to make large data sets processing even easier, DataFrame allows developers to impose a structure onto a distributed collection of data, allowing higher-level abstraction;
