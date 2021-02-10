@@ -98,13 +98,14 @@ Above example yields output as 5 partitions.
 ##### 1.2 HDFS cluster mode
 When you running PySpark jobs on the Hadoop cluster the default number of partitions is based on the following.
 
-On the HDFS cluster, by default, PySpark creates one Partition for each block of the file.              
-In Version 1 Hadoop the HDFS block size is 64 MB and in Version 2 Hadoop the HDFS block size is 128 MB          
-Total number of cores on all executor nodes in a cluster or 2, whichever is larger              
-For example if you have 640 MB file and running it on Hadoop version 2, creates 5 partitions with each consists on 128 MB blocks (5 blocks * 128 MB = 640 MB). If you repartition to 10 then it creates 2 partitions for each block.            
+- On the HDFS cluster, by default, PySpark creates one Partition for each block of the file.              
+- In Version 1 Hadoop the HDFS block size is 64 MB and in Version 2 Hadoop the HDFS block size is 128 MB          
+- Total number of cores on all executor nodes in a cluster or 2, whichever is larger              
+- For example if you have 640 MB file and running it on Hadoop version 2, creates 5 partitions with each consists on 128 MB blocks (5 blocks * 128 MB = 640 MB). If you repartition to 10 then it creates 2 partitions for each block.            
 
 ##### 1.3 PySpark configuration
-`spark.default.parallelism` configuration default value set to the number of all cores on all nodes in a cluster, on local it is set to number of cores on your system.         
+`spark.default.parallelism` configuration default value set to the number of all cores on all nodes in a cluster, on local it is set to number of cores on your system.       
+
 `spark.sql.shuffle.partitions` configuration default value is set to 200 and be used when you call shuffle operations like reduceByKey()  , groupByKey(), join() and many more. This property is available only in DataFrame API but not in RDD.                
 
 You can change the values of these properties through programmatically using the below statement
