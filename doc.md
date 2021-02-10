@@ -47,9 +47,11 @@ In realtime application, you will pass master from spark-submit instead of hardc
 ***Note:*** Creating SparkSession object, it internally creates one SparkContext per JVM.
 
 #### Create RDD using sparkContext.parallelize()
-PySpark `parallelize()` is a function in SparkContext and is used to create an RDD from a list collection               
-Example : [Parallelize.ipynb](Notebooks/pyspark-parallelize.ipynb)              
-For production applications, we mostly create RDD by using external storage systems like HDFS, S3, HBase e.t.c. To make it simple for this PySpark RDD learning we are using files from the local system or loading it from the python list to create RDD.
+PySpark `parallelize()` is a function in SparkContext and is used to create an RDD from a list collection 
+
+Example : [Parallelize.ipynb](Notebooks/pyspark-parallelize.ipynb)  
+
+> For production applications, we mostly create RDD by using external storage systems like HDFS, S3, HBase e.t.c. To make it simple for this PySpark RDD learning we are using files from the local system or loading it from the python list to create RDD.
 
 #### Create RDD from External Storage Systems
 Using `textFile()` method we can read a text (.txt) file into RDD.
@@ -68,6 +70,7 @@ Besides using text files, we can also create RDD from CSV file, JSON, and more f
 
 To learn more : 
 [Reading text file into RDD |DataFrame](https://sparkbyexamples.com/spark/spark-read-text-file-rdd-dataframe/)
+
 [Reading CSV](https://sparkbyexamples.com/pyspark/pyspark-read-csv-file-into-dataframe/)
 
 ### Repartition and Coalesce
@@ -177,7 +180,8 @@ Some actions on RDD’s are :
 
 Some more actions are : `aggregate(), countByValue(), foreach(), min()`
 
-Example : [RDD Actions.ipynb](Notebooks/pyspark-rdd-actions.ipynb)
+Example : [RDD Actions.ipynb](Notebooks/pyspark-rdd-actions.ipynb)              
+
 For more Info : [RDD Actions](https://sparkbyexamples.com/apache-spark-rdd/spark-rdd-actions/)
 
 ## PySpark RDD Persistence 
