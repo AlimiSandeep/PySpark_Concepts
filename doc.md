@@ -283,5 +283,62 @@ Ex : [Accumulator.ipynb](Notebooks/pyspark-accumulator.ipynb)
 
 For more : [Accumulators](https://sparkbyexamples.com/spark/spark-accumulators/) 
 
-DataFrames
+# DataFrames
+***
+
 Like an RDD, a DataFrame is an immutable distributed collection of data. Unlike an RDD, data is organized into named columns, like a table in a relational database. Designed to make large data sets processing even easier, DataFrame allows developers to impose a structure onto a distributed collection of data, allowing higher-level abstraction;
+
+You may wonder what's the difference between RDD, DataFrame, DataSet
+
+In short :
+
+|                       | RDDs                                                                                                 | Dataframes                                                                                                             | Datasets                                                                                            |
+|-----------------------|------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| Data Representation   | RDD is a distributed collection of data elements without any schema.                                 | It is also the distributed collection organized into the named columns                                                 | It is an extension of Dataframes with more features like type-safety and object-oriented interface. |
+| Optimization          | No in-built optimization engine for RDDs. Developers need to write the optimized code themselves.    | It uses a catalyst optimizer for optimization.                                                                         | It also uses a catalyst optimizer for optimization purposes.                                        |
+| Projection of Schema  | Here, we need to define the schema manually.                                                         | It will automatically find out the schema of the dataset.                                                              | It will also automatically find out the schema of the dataset by using the SQL Engine.              |
+| Aggregation Operation | RDD is slower than both Dataframes and Datasets to perform simple operations like grouping the data. | It provides an easy API to perform aggregation operations. It performs aggregation faster than both RDDs and Datasets. | Dataset is faster than RDDs but a bit slower than Dataframes.                                       |
+
+For more Vist : [RDD vs DataFrame vs DataSet](https://medium.com/analytics-vidhya/datasets-vs-dataframes-vs-rdds-d3c2dba2d0b4) 
+
+### Create DataFrame with Examples
+***
+
+You can Create a PySpark DataFrame using toDF() and createDataFrame() methods, both these function takes different signatures in order to create DataFrame from existing RDD, list, and DataFrame.
+
+You can also create PySpark DataFrame from data sources like TXT, CSV, JSON, ORV, Avro, Parquet, XML formats by reading from HDFS, S3, DBFS, Azure Blob file systems e.t.c.
+
+Finally, PySpark DataFrame also can be created by reading data from RDBMS Databases and NoSQL databases.
+
+Ex : [Create Dataframe.ipynb](Notebooks/pyspark-create-dataframe.ipynb)  
+
+#### Create DataFrame from Data sources
+In real-time mostly you create DataFrame from data source files like CSV, Text, JSON, XML e.t.c.
+
+PySpark by default supports many data formats out of the box without importing any libraries and to create DataFrame you need to use the appropriate method available in DataFrameReader class.
+
+**Creating DataFrame from CSV**
+Example : [DataFrame - CSV.ipynb](Notebooks/pyspark-read-write-csv.ipynb)  
+
+**Creating DataFrame from JSON**
+Example : [DataFrame - JSON.ipynb](Notebooks/pyspark-read-json.ipynb) 
+
+
+**Creating DataFrame from Parquet**
+
+Pyspark SQL provides methods to read Parquet file into DataFrame and write DataFrame to Parquet files, `parquet()` function
+
+Apache Parquet is a free and open-source column-oriented data storage format of the Apache Hadoop ecosystem
+
+###### Advantages:
+- While querying columnar storage, it skips the nonrelevant data very quickly, making faster query execution. As a result aggregation queries consume less time compared to row-oriented databases.
+- It is able to support advanced nested data structures.
+- Parquet supports efficient compression options and encoding schemes.
+
+Pyspark SQL provides support for both reading and writing Parquet files that automatically capture the schema of the original data, It also reduces data storage by 75% on average. 
+
+For more on Parquet : [Parquet](https://www.upsolver.com/blog/apache-parquet-why-use)
+
+Example : [DataFrame - Parquet.ipynb](Notebooks/pyspark-parquet.ipynb) 
+
+
