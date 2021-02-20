@@ -347,5 +347,10 @@ Use PySpark `withColumnRenamed()` to rename a DataFrame column, we often need to
 
 Example : [DataFrame - Rename Column.ipynb](Notebooks/pyspark-with-column-renamed.ipynb)
 
+#### PySpark "withColumn" -  to update or add a column
+
+PySpark `withColumn()` is a transformation function of DataFrame which is used to change or update the value, convert the datatype of an existing DataFrame column, add/create a new column, and many more.
+
+Example : [DataFrame - withColumn Usage.ipynb](Notebooks/pyspark-with-column-usage.ipynb)
 
 
