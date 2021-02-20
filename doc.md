@@ -341,4 +341,11 @@ For more on Parquet : [Parquet](https://www.upsolver.com/blog/apache-parquet-why
 
 Example : [DataFrame - Parquet.ipynb](Notebooks/pyspark-parquet.ipynb) 
 
+#### PySpark Rename Column on DataFrame
+
+Use PySpark `withColumnRenamed()` to rename a DataFrame column, we often need to rename one column or multiple columns on PySpark DataFrame, you can do this in several ways.
+
+Example : [DataFrame - Rename Column.ipynb](Notebooks/pyspark-with-column-renamed.ipynb)
+
+
 
