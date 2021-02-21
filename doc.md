@@ -361,6 +361,17 @@ After processing data in PySpark we would need to convert it back to Pandas Data
 
 Example [Convert PySpark DF to PandasDF.ipynb](Notebooks/pyspark-Convert-PySpark-DataFrame-to-Pandas.ipynb)
 
+### PySpark Row usage on DataFrame and RDD
+***
+In PySpark Row class is available by importing `pyspark.sql.Row` which is represented as a record/row in DataFrame, one can create a Row object by using named arguments, or create a custom Row like class
+
+
+Before we start using it on RDD & DataFrame, let’s understand some basics of Row class.
+
+When used Row class with named arguments, the fields are sorted by name in Spark < 3.0. Since 3.0 Rows created from named arguments are not sorted alphabetically and will be ordered in the position as entered. o enable sorting for Rows set the environment variable `“PYSPARK_ROW_FIELD_SORTING_ENABLED” to “true”`.
+
+Examples : [Row usage on DF and RDD.ipynb](Notebooks/pyspark-row-usage-on-DF-and-RDD.ipynb)
+
 ### PySpark Rename Column on DataFrame
 ***
 
