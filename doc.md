@@ -341,16 +341,23 @@ For more on Parquet : [Parquet](https://www.upsolver.com/blog/apache-parquet-why
 
 Example : [DataFrame - Parquet.ipynb](Notebooks/pyspark-parquet.ipynb) 
 
-#### PySpark Rename Column on DataFrame
+### PySpark Rename Column on DataFrame
+***
 
 Use PySpark `withColumnRenamed()` to rename a DataFrame column, we often need to rename one column or multiple columns on PySpark DataFrame, you can do this in several ways.
 
 Example : [DataFrame - Rename Column.ipynb](Notebooks/pyspark-with-column-renamed.ipynb)
 
-#### PySpark "withColumn" -  to update or add a column
+### PySpark "withColumn" -  to update or add a column
+***
 
 PySpark `withColumn()` is a transformation function of DataFrame which is used to change or update the value, convert the datatype of an existing DataFrame column, add/create a new column, and many more.
 
 Example : [DataFrame - withColumn Usage.ipynb](Notebooks/pyspark-with-column-usage.ipynb)
 
+### PySpark "filter" records from DF
+***
 
+PySpark `filter()` function is used to filter the rows from RDD/DataFrame based on the given condition or SQL expression, you can also use `where()` clause instead of the filter() if you are coming from SQL background, both these functions operate exactly the same.
+
+Example : [DataFrame - filter records.ipynb](Notebooks/pyspark-df-filter.ipynb)
