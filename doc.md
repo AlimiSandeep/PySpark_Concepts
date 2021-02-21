@@ -312,7 +312,7 @@ Finally, PySpark DataFrame also can be created by reading data from RDBMS Databa
 
 Ex : [Create Dataframe.ipynb](Notebooks/pyspark-create-dataframe.ipynb)  
 
-#### Create DataFrame from Data sources
+##### Create DataFrame from Data sources
 In real-time mostly you create DataFrame from data source files like CSV, Text, JSON, XML e.t.c.
 
 PySpark by default supports many data formats out of the box without importing any libraries and to create DataFrame you need to use the appropriate method available in DataFrameReader class.
@@ -340,6 +340,14 @@ Pyspark SQL provides support for both reading and writing Parquet files that aut
 For more on Parquet : [Parquet](https://www.upsolver.com/blog/apache-parquet-why-use)
 
 Example : [DataFrame - Parquet.ipynb](Notebooks/pyspark-parquet.ipynb) 
+
+### Create Empty DataFrame
+***
+While working with files, some times we may not receive a file for processing, however, we still need to create a DataFrame with the same schema we expect. If we don’t create with the same schema, our operations/transformations (like union’s) on DF fail as we refer to the columns that may not present.
+
+To handle situations similar to these, we always need to create a DataFrame with the same schema, which means the same column names and datatypes regardless of the file exists or empty file processing.
+
+Example : [Create Empty DataFrame.ipynb](Notebooks/pyspark-empty-df.ipynb) 
 
 ### PySpark Rename Column on DataFrame
 ***
