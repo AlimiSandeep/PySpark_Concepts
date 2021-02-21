@@ -349,6 +349,18 @@ To handle situations similar to these, we always need to create a DataFrame with
 
 Example : [Create Empty DataFrame.ipynb](Notebooks/pyspark-empty-df.ipynb) 
 
+### Convert PySpark DataFrame to Pandas
+***
+PySpark DataFrame can be converted to Python Pandas DataFrame using a function `toPandas()`
+
+Before we start first understand the main differences between the Pandas & PySpark, operations on Pyspark run faster than Pandas due to its distributed nature and parallel execution on multiple cores and machines.
+
+In other words, pandas run operations on a single node whereas PySpark runs on multiple machines. If you are working on a Machine Learning application where you are dealing with larger datasets, PySpark processes operations many times faster than pandas.
+
+After processing data in PySpark we would need to convert it back to Pandas DataFrame for a further procession with Machine Learning application or any Python applications.
+
+Example [Convert PySpark DF to PandasDF.ipynb](Notebooks/pyspark-Convert-PySpark-DataFrame-to-Pandas.ipynb)
+
 ### PySpark Rename Column on DataFrame
 ***
 
