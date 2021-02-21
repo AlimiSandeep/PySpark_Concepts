@@ -372,6 +372,13 @@ When used Row class with named arguments, the fields are sorted by name in Spark
 
 Examples : [Row usage on DF and RDD.ipynb](Notebooks/pyspark-row-usage-on-DF-and-RDD.ipynb)
 
+### Select columns from PySpark DataFrame
+***
+In PySpark, `select()` function is used to select one or more columns and also be used to select the nested columns from a DataFrame. 
+> `select()` is a transformation function in PySpark and returns a new DataFrame with the selected columns.
+
+Example : [Select columns.ipynb](Notebooks/pyspark-select-columns.ipynb)
+
 ### PySpark Rename Column on DataFrame
 ***
 
