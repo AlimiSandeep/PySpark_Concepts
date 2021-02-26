@@ -407,3 +407,11 @@ PySpark `distinct()` function is used to drop the duplicate rows (considers all 
 
 Example :[Distinct-DropDuplicates.ipynb](Notebooks/pyspark-distinct-and-drop-duplicates.ipynb)
 
+### PySpark orderBy() and sort() explained
+***
+You can use either `sort() or orderBy()` function of PySpark DataFrame to sort DataFrame by ascending or descending order based on single or multiple columns, you can also do sorting using PySpark SQL sorting functions
+
+Example : [Sort - OrderBy](Notebooks/pyspark-sort-order-by.ipynb)
+
+
+
