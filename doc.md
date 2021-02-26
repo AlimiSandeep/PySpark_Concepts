@@ -413,5 +413,27 @@ You can use either `sort() or orderBy()` function of PySpark DataFrame to sort D
 
 Example : [Sort - OrderBy](Notebooks/pyspark-sort-order-by.ipynb)
 
+### PySpark Groupby
+***
+Similar to SQL GROUP BY clause, PySpark `groupBy()` function is used to collect the identical data into groups on DataFrame and perform aggregate functions on the grouped data
 
+When we perform `groupBy()` on PySpark Dataframe, it returns GroupedData object which contains below aggregate functions.
+
+- count() - Returns the count of rows for each group.
+
+- mean() - Returns the mean of values for each group.
+
+- max() - Returns the maximum of values for each group.
+
+- min() - Returns the minimum of values for each group.
+
+- sum() - Returns the total for values for each group.
+
+- avg() - Returns the average for values for each group.
+
+- agg() - Using agg() function, we can calculate more than one aggregate at a time.
+
+- pivot() - This function is used to Pivot the DataFrame
+
+Example : [GroupBy](Notebooks/pyspark-groupby.ipynb)
 
