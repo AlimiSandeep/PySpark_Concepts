@@ -399,3 +399,11 @@ Example : [DataFrame - withColumn Usage.ipynb](Notebooks/pyspark-with-column-usa
 PySpark `filter()` function is used to filter the rows from RDD/DataFrame based on the given condition or SQL expression, you can also use `where()` clause instead of the filter() if you are coming from SQL background, both these functions operate exactly the same.
 
 Example : [DataFrame - filter records.ipynb](Notebooks/pyspark-df-filter.ipynb)
+
+### PySpark – Distinct to drop duplicate rows
+***
+
+PySpark `distinct()` function is used to drop the duplicate rows (considers all columns for duplicate elimination) from DataFrame and `dropDuplicates()` is used to drop selected (one or multiple) columns.
+
+Example :[Distinct-DropDuplicates.ipynb](Notebooks/pyspark-distinct-and-drop-duplicates.ipynb)
+
