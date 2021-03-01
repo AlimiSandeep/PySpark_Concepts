@@ -507,5 +507,57 @@ If you are working as a Data Scientist or Data analyst you often required to ana
 
 Example : [Random sample](Notebooks/pyspark-random-sample.ipynb)
 
+## PySpark Handling NULL Values
+***
 
+#### 1. Filter Rows with NULL Values
 
+While working on PySpark SQL DataFrame we often need to filter rows with `NULL/None` values on columns, you can do this by checking `IS NULL or IS NOT NULL` conditions.
+
+ 
+In many cases **NULL** on columns needs to handles before you performing any operations on columns as operations on **NULL** values results in unexpected values.
+
+> Note: PySpark doesn’t support column === null, when used it returns an error.
+
+We need to graciously handle null values as the first step before processing. Also, While writing DataFrame to the files, it’s a good practice to store files without NULL values either by dropping Rows with NULL values on DataFrame or By Replacing NULL values with empty string.
+
+Example : [Filter rows with NULL values](Notebooks/pyspark-filter-null-values.ipynb)
+
+#### 2. Replace NULL Values
+
+In PySpark, DataFrame `fillna() or DataFrameNaFunctions.fill()` is used to replace **NULL** values on the DataFrame columns with either with zero(0), empty string, space, or any constant literal values.
+
+ 
+While working on PySpark DataFrame we often need to replace null values, as certain operations on null values return `NullpointerException`, hence we need to graciously handle nulls as the first step before processing. Also, while writing to a file, it’s always best practice to replace null values, not doing this result nulls on the output file.
+
+Example : [Replace NULL values](Notebooks/pyspark-replace-null-values.ipynb)
+
+#### 3. Drop Rows with NULL or None Values
+
+In PySpark,` pyspark.sql.DataFrameNaFunctions` class provides several functions to deal with `NULL/None` values, among these `drop()` function is used to remove/drop rows with NULL values in DataFrame columns, alternatively, you can also use `df.dropna()`
+
+By using the `drop()` function you can drop all rows with null values in *any, all, single, multiple, and selected columns*. This function comes in handy when you need to clean the data before processing.
+
+When you read a file into PySpark DataFrame API, any column that has an empty value result in NULL on DataFrame.
+
+In RDBMS SQL, you need to check on every column if the value is null in order to drop however, the PySpark `drop()` function is powerfull as it can checks all columns for null values and drops the rows.
+
+*PySpark drop() Syntax*     
+PySpark drop() function can take 3 optional parameters that are used to remove Rows with NULL values on single, any, all, multiple DataFrame columns.
+
+drop() is a transformation function hence it returns a new DataFrame after dropping the rows/records from the current Dataframe.
+
+Syntax:
+```
+drop(how='any', thresh=None, subset=None)
+```
+All these parameters are optional.
+
+how – This takes values ‘any’ or ‘all’. By using ‘any’, drop a row if it contains NULLs on any columns. By using ‘all’, drop a row only if all columns have NULL values. Default is ‘any’.
+
+thresh – This takes int value, Drop rows that have less than thresh hold non-null values. Default is ‘None’.
+
+subset – Use this to select the columns for NULL values. Default is ‘None.
+Alternatively, you can also use DataFrame.dropna() function to drop rows with null values.
+
+Example : [Drop Rows with NULL's](Notebooks/pyspark-drop-rows-with-null-values.ipynb)
