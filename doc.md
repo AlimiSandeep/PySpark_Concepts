@@ -448,9 +448,9 @@ PySpark SQL join has a below syntax and it can be accessed directly from DataFra
 `join(self, other, on=None, how=None)`
 
 > join() operation takes parameters as below and returns DataFrame.         
-> other: Right side of the join
-> on: a string for the join column name
-> how: default inner. 
+> other: Right side of the join  
+> on: a string for the join column name  
+> how: default inner.    
 Must be one of inner, cross, outer,full, full_outer, left, left_outer, right, right_outer,left_semi, and left_anti.
 
 You can also write Join expression by adding`where() and filter()` methods on DataFrame and can have Join on multiple columns.
@@ -474,3 +474,31 @@ PySpark `union() and unionAll()` transformations are used to merge two or more D
 > Note: In other SQL languages, `Union` eliminates the duplicates but `UnionAll` merges two datasets including duplicate records. But, in PySpark both behave the same and recommend using DataFrame `duplicate()` function to remove duplicate rows.
 
 Example : [Union - UnionAll](Notebooks/pyspark-union-unionall.ipynb)
+
+### PySpark UDF (User Defined Function)
+***
+
+PySpark UDF (a.k.a User Defined Function) is the most useful feature of Spark SQL & DataFrame that is used to extend the PySpark build in capabilities. In this article, I will explain what is UDF? why do we need it and how to create and use it on DataFrame `select(), withColumn() and SQL` using PySpark (Spark with Python) examples.
+
+>Note: UDF’s are the most expensive operations hence use them only you have no choice and when essential.
+
+#### 1. PySpark UDF Introduction
+##### 1.1 What is UDF?
+
+UDF’s a.k.a User Defined Functions, If you are coming from SQL background, UDF’s are nothing new to you as most of the traditional RDBMS databases support User Defined Functions, these functions need to register in the database library and use them on SQL as regular functions.
+
+PySpark UDF’s are similar to UDF on traditional databases. In PySpark, you create a function in a Python syntax and wrap it with PySpark SQL `udf()` or register it as udf and use it on DataFrame and SQL respectively.
+
+##### 1.2 Why do we need a UDF?
+
+UDF’s are used to extend the functions of the framework and re-use these functions on multiple DataFrame’s. For example, you wanted to convert every first letter of a word in a name string to a capital case; PySpark built-in features don’t have this function hence you can create it as UDF and reuse this as needed on many Data Frames. UDF’s are once created they can be re-used on several DataFrame’s and SQL expressions.
+
+Before you create any UDF, do your research to check if the similar function you wanted is already available in [Spark SQL Functions](https://sparkbyexamples.com/spark/spark-sql-functions/) . PySpark SQL provides several predefined common functions and many more new functions are added with every release. hence, It is best to check before you reinventing the wheel.
+
+When you creating UDF’s you need to design them very carefully otherwise you will come across optimization & performance issues.
+
+Example : [PySpark UDF](Notebooks/pysaprk-udf.ipynb) 
+
+
+
+
