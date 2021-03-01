@@ -497,8 +497,15 @@ Before you create any UDF, do your research to check if the similar function you
 
 When you creating UDF’s you need to design them very carefully otherwise you will come across optimization & performance issues.
 
-Example : [PySpark UDF](Notebooks/pysaprk-udf.ipynb) 
+Example : [PySpark UDF](Notebooks/pyspark-udf.ipynb) 
 
+### PySpark Random Sample 
+***
+PySpark provides a `pyspark.sql.DataFrame.sample(), pyspark.sql.DataFrame.sampleBy(), RDD.sample(), and RDD.takeSample()` methods to get the random sampling subset from the large dataset.
+
+If you are working as a Data Scientist or Data analyst you often required to analyze a large dataset/file with billions or trillions of records, processing these large datasets takes some time hence during the analysis phase it is recommended to use a random subset sample from the large files.
+
+Example : [Random sample](Notebooks/pyspark-random-sample.ipynb)
 
 
 
