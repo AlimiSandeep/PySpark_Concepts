@@ -437,3 +437,28 @@ When we perform `groupBy()` on PySpark Dataframe, it returns GroupedData object 
 
 Example : [GroupBy](Notebooks/pyspark-groupby.ipynb)
 
+### PySpark Join Types - Join Two DataFrames
+***
+PySpark Join is used to combine two DataFrames and by chaining these you can join multiple DataFrames; it supports all basic join type operations available in traditional SQL like `INNER, LEFT OUTER, RIGHT OUTER, LEFT ANTI, LEFT SEMI, CROSS, SELF JOIN`. PySpark Joins are wider transformations that involve data shuffling across the network.
+
+**PySpark Join Syntax**
+
+PySpark SQL join has a below syntax and it can be accessed directly from DataFrame.
+
+`join(self, other, on=None, how=None)`
+
+> join() operation takes parameters as below and returns DataFrame.         
+> other: Right side of the join
+> on: a string for the join column name
+> how: default inner. 
+Must be one of inner, cross, outer,full, full_outer, left, left_outer, right, right_outer,left_semi, and left_anti.
+
+You can also write Join expression by adding`where() and filter()` methods on DataFrame and can have Join on multiple columns.
+
+**PySpark Join Types**
+
+Below are the different Join Types PySpark supports.
+
+![Joins](./Reference%20Images/joins.png)
+
+Example :  [Joins](Notebooks/pyspark-joins.ipynb)
