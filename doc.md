@@ -462,3 +462,15 @@ Below are the different Join Types PySpark supports.
 ![Joins](./Reference%20Images/joins.png)
 
 Example :  [Joins](Notebooks/pyspark-joins.ipynb)
+
+### PySpark Union and UnionAll
+***
+PySpark `union() and unionAll()` transformations are used to merge two or more DataFrame’s of the same schema or structure.
+
+**Dataframe union()** – `union()` method of the DataFrame is used to merge two DataFrame’s of the same structure/schema. If schemas are not the same it returns an error.
+
+**DataFrame unionAll()** – `unionAll()` is deprecated since Spark “2.0.0” version and replaced with `union()`.
+
+> Note: In other SQL languages, `Union` eliminates the duplicates but `UnionAll` merges two datasets including duplicate records. But, in PySpark both behave the same and recommend using DataFrame `duplicate()` function to remove duplicate rows.
+
+Example : [Union - UnionAll](Notebooks/pyspark-union-unionall.ipynb)
