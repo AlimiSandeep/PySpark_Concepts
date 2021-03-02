@@ -561,3 +561,9 @@ subset – Use this to select the columns for NULL values. Default is ‘None.
 Alternatively, you can also use DataFrame.dropna() function to drop rows with null values.
 
 Example : [Drop Rows with NULL's](Notebooks/pyspark-drop-rows-with-null-values.ipynb)
+
+### PySpark Pivot and Unpivot DataFrame
+***
+PySpark `pivot()` function is used to rotate/transpose the data from one column into multiple Dataframe columns and back using `unpivot()`. Pivot() It is an aggregation where one of the grouping columns values transposed into individual columns with distinct data.
+
+Example : [Pivot - Unpivot](Notebooks/pyspark-pivot-unpivot.ipynb)
